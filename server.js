@@ -1,9 +1,6 @@
-// Import & require express
 const express = require("express");
-// Import & require inquirer
-const inquirer = require(`inquirer`);
-// Import & require mysql2
-const mysql = require("mysql2");
+const inquirer = require("inquirer");
+const db = require("./db/connection");
 
 const PORT = process.env.PORT || 3001;
 const app = express();
@@ -12,17 +9,16 @@ const app = express();
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 
-// Connect to database
-const db = mysql.createConnection(
-  {
-    host: "127.0.0.1",
-    // mysql username
-    user: "root",
-    // mysql password
-    password: "",
-    database: "employee_tracker",
-  },
-  console.log(`Connected to the employee_tracker database.`)
-);
+// Query the database
+db.query("SELECT * FROM department", function (err, results) {
+  console.log(results);
+});
 
-module.exports = { db };
+// Response for any other request (Not Found)
+app.use((req, res) => {
+  res.status(404).end();
+});
+
+app.listen(PORT, () => {
+  console.log(`Server running on port ${PORT}`);
+});

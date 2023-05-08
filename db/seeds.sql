@@ -1,25 +1,33 @@
-INSERT INTO department (name)
-VALUES  ('Sales'),
-        ('Finance'),
-        ('Development'),
-        ('Managment'),
-        ('Services');
+INSERT INTO departments (name)
+VALUES 
+  ('Marketing'),
+  ('Sales'),
+  ('Development'),
+  ('Finance'),
+  ('Human Resources');
 
-INSERT INTO role (title, salary, department_id)
-VALUES  ('Sales rep', 60000, 1),
-        ('Sales Manager', 150000, 1),
-        ('Account Rep', 70000, 2),
-        ('Junior Developer', 80000, 3),
-        ('Senior Developer', 125000, 3),
-        ('Analyst', 90000, 4),
-        ('Support Specialist', 45000, 5);
+INSERT INTO roles (title, salary, department_id)
+VALUES
+  ('Creative Director', 125000, 1),
+  ('Sales Lead', 90000, 2),
+  ('Salesperson', 70000, 2),
+  ('Senior Development Lead', 125000, 3),
+  ('Web Developer', 100000, 3),
+  ('Software Engineer', 100000, 3),
+  ('Account Manager', 125000, 4),
+  ('Accountant', 100000, 4),
+  ('Recruiter', 50000, 5),
+  ('Intern', 20000, 1);
 
-
-INSERT INTO employee (first_name, last_name, role_id, manager_id)
-VALUES  ('Connor', 'Stroh', 1, NULL),
-        ('Jesse', 'Johnson', 1, 1),
-        ('Shawn', 'George', 2, NULL),
-        ('Brooke', 'Zander', 3, NULL),
-        ('Nathan', 'Luzum', 3, 2),
-        ('Sam', 'Foshier', 4, 3),
-        ('John', 'Doe', 5, NULL);
+INSERT INTO employees (first_name, last_name, role_id, manager_id)
+VALUES 
+  ('Connor', 'Stroh', 1, NULL),
+  ('Nathan', 'Luzum', 2, NULL ),
+  ('Sam', 'Foshier', 3, 2),
+  ('Brooke', 'Zander', 4, NULL),
+  ('Tim', 'Cook', 5, 4),
+  ('Joe', 'Rogan', 6, 4),
+  ('Collin', 'Lea', 7, NULL),
+  ('Jesse', 'Johnson', 8, 7),
+  ('Bill', 'Buhr', 9, NULL),
+  ('Justin', 'Jefferson', 10, 1);

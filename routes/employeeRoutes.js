@@ -41,7 +41,7 @@ router.post("/employee", ({ body }, res) => {
   const params = [
     body.first_name,
     body.last_name,
-    body.manager_id,
+    body.role_id,
     body.manager_id,
   ];
 

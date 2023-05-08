@@ -309,4 +309,153 @@ const addEmployee = () => {
   });
 };
 
+// Update Employee
+const updateEmployee = () => {
+  db.query("SELECT * FROM roles", function (err, rows) {
+    if (err) {
+      throw err;
+    }
+    inquirer
+      .prompt([
+        {
+          type: "input",
+          name: "employee",
+          message: "Enter the ID of the employee you would like to update.",
+          validate: (employee) => {
+            if (employee) {
+              return true;
+            } else {
+              console.log("You must enter an employee ID!");
+              return false;
+            }
+          },
+        },
+        {
+          type: "list",
+          name: "role",
+          message: "What is the employee's new role?",
+          choices: function () {
+            const roleChoices = [];
+            for (let i = 0; i < rows.length; i++) {
+              roleChoices.push(rows[i].title);
+            }
+            return roleChoices;
+          },
+        },
+      ])
+      .then((updatedEmployeeInfo) => {
+        let roleSelection;
+        for (let i = 0; i < rows.length; i++) {
+          if (rows[i].title == updatedEmployeeInfo.role) {
+            roleSelection = rows[i].id;
+          }
+        }
+        db.query(
+          `UPDATE employees SET ? WHERE ?`,
+          [
+            {
+              role_id: roleSelection,
+            },
+            {
+              id: updatedEmployeeInfo.employee,
+            },
+          ],
+          (err, rows) => {
+            if (err) {
+              throw err;
+            }
+            console.log("Success! The employee's role has been updated.");
+            displayMenu();
+          }
+        );
+      });
+  });
+};
+
+// Delete Department
+const deleteDepartment = () => {
+  db.query("SELECT * FROM departments", function (err, rows) {
+    if (err) {
+      throw err;
+    }
+    inquirer
+      .prompt({
+        type: "list",
+        name: "department",
+        message: "Select the department that you would like to delete.",
+        choices: function () {
+          const departmentChoices = [];
+          for (let i = 0; i < rows.length; i++) {
+            departmentChoices.push(rows[i].dept_name);
+          }
+          return departmentChoices;
+        },
+      })
+      .then((deletedDept) => {
+        let departmentDeletion;
+        for (let i = 0; i < rows.length; i++) {
+          if (rows[i].dept_name == deletedDept.department) {
+            departmentDeletion = rows[i].id;
+          }
+        }
+        db.query(
+          `DELETE FROM departments WHERE ?`,
+          {
+            id: departmentDeletion,
+          },
+          (err, rows) => {
+            if (err) {
+              throw err;
+            }
+            console.log("Success! The department has been deleted.");
+            displayMenu();
+          }
+        );
+      });
+  });
+};
+
+// Delete Role
+const deleteRole = () => {
+  db.query("SELECT * FROM roles", function (err, rows) {
+    if (err) {
+      throw err;
+    }
+    inquirer
+      .prompt({
+        type: "list",
+        name: "role",
+        message: "Select the role that you would like to delete.",
+        choices: function () {
+          const roleChoices = [];
+          for (let i = 0; i < rows.length; i++) {
+            roleChoices.push(rows[i].title);
+          }
+          return roleChoices;
+        },
+      })
+      .then((deletedRole) => {
+        let roleDeletion;
+        for (let i = 0; i < rows.length; i++) {
+          if (rows[i].title == deletedRole.role) {
+            roleDeletion = rows[i].id;
+          }
+        }
+        db.query(
+          `DELETE FROM roles WHERE ?`,
+          {
+            id: roleDeletion,
+          },
+          (err, rows) => {
+            if (err) {
+              throw err;
+            }
+            console.log("Success! The role has been deleted.");
+            displayMenu();
+          }
+        );
+      });
+  });
+};
+
 displayMenu();

@@ -9,11 +9,6 @@ const app = express();
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 
-// // Query the database
-// db.query("SELECT * FROM department", function (err, results) {
-//   console.log(results);
-// });
-
 // Use API routes
 app.use("/api", apiRoutes);
 

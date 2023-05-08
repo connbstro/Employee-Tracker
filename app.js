@@ -57,10 +57,10 @@ const displayMenu = () => {
         case "Delete a Role":
           deleteRole();
           break;
-        // case "Exit Application":
-        //   console.log("Goodbye!");
-        // default:
-        //   process.exit();
+        case "Exit Application":
+          console.log("Goodbye!");
+        default:
+          process.exit();
       }
     });
 };
@@ -77,6 +77,57 @@ const viewDepartments = () => {
       displayMenu();
     }
   );
+};
+
+const viewRoles = () => {
+  db.query(
+    `SELECT roles.id, roles.title, departments.dept_name AS department, roles.salary
+        FROM roles 
+        LEFT JOIN departments
+        ON roles.department_id=departments.id`,
+    (err, rows) => {
+      if (err) {
+        throw err;
+      }
+      console.table(rows);
+      displayMenu();
+    }
+  );
+};
+
+const viewEmployees = () => {
+  db.query(
+    `SELECT 
+        e.id, 
+        e.first_name, 
+        e.last_name, 
+        r.title AS role,
+        r.salary AS salary,
+        d.dept_name AS department,
+        CONCAT (m.first_name, " " ,m.last_name) AS manager
+        FROM employees e
+        LEFT JOIN roles r
+        ON e.role_id = r.id
+        LEFT JOIN departments d
+        ON r.department_id = d.id
+        LEFT JOIN employees m
+        ON e.manager_id = m.id`,
+    (err, results) => {
+      if (err) {
+        throw err;
+      }
+      console.table(results);
+      displayMenu();
+    }
+  );
+};
+
+const addDepartment = () => {
+  inquirer;
+  db.query(`INSERT INTO departments`, (err, rows) => {
+    console.table(rows);
+    displayMenu();
+  });
 };
 
 displayMenu();

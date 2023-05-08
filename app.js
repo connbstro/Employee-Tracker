@@ -56,12 +56,26 @@ const displayMenu = () => {
         case "Delete a Role":
           deleteRole();
           break;
-        case "Exit Application":
-          console.log("Goodbye!");
-        default:
-          process.exit();
+        // case "Exit Application":
+        //   console.log("Goodbye!");
+        // default:
+        //   process.exit();
       }
     });
+};
+
+// Menu functionality
+const viewDepartments = () => {
+  db.query(
+    `SELECT departments.id, departments.dept_name AS name FROM departments`,
+    (err, rows) => {
+      if (err) {
+        throw err;
+      }
+      console.table(rows);
+      displayMenu();
+    }
+  );
 };
 
 displayMenu();

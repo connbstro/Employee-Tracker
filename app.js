@@ -122,6 +122,7 @@ const viewEmployees = () => {
   );
 };
 
+// Add Department
 const addDepartment = () => {
   inquirer
     .prompt([
@@ -154,6 +155,7 @@ const addDepartment = () => {
     });
 };
 
+// Add role
 const addRole = () => {
   db.query("SELECT * FROM departments", function (err, rows) {
     if (err) {
@@ -220,6 +222,86 @@ const addRole = () => {
               throw err;
             }
             console.log("Success! The role has been added to database.");
+            displayMenu();
+          }
+        );
+      });
+  });
+};
+
+// Add Employee
+const addEmployee = () => {
+  db.query("SELECT * FROM roles", function (err, rows) {
+    if (err) {
+      throw err;
+    }
+    inquirer
+      .prompt([
+        {
+          type: "input",
+          name: "firstName",
+          message: "What is the employee's first name?",
+          validate: (firstName) => {
+            if (firstName) {
+              return true;
+            } else {
+              console.log("You must enter a first name for the employee!");
+              return false;
+            }
+          },
+        },
+        {
+          type: "input",
+          name: "lastName",
+          message: "What is the employee's last name?",
+          validate: (lastName) => {
+            if (lastName) {
+              return true;
+            } else {
+              console.log("You must enter a last name for the employee!");
+              return false;
+            }
+          },
+        },
+        {
+          // User can select a role from list
+          type: "list",
+          name: "role",
+          message: "What is the employee's role?",
+          choices: function () {
+            const roleChoices = [];
+            for (let i = 0; i < rows.length; i++) {
+              roleChoices.push(rows[i].title);
+            }
+            return roleChoices;
+          },
+        },
+        {
+          type: "input",
+          name: "manager",
+          message: "Enter the ID of the employee's manager.",
+        },
+      ])
+      .then((newEmployee) => {
+        let roleSelection;
+        for (let i = 0; i < rows.length; i++) {
+          if (rows[i].title == newEmployee.role) {
+            roleSelection = rows[i].id;
+          }
+        }
+        db.query(
+          `INSERT INTO employees SET ?`,
+          {
+            first_name: newEmployee.firstName,
+            last_name: newEmployee.lastName,
+            role_id: roleSelection,
+            manager_id: newEmployee.manager,
+          },
+          (err, rows) => {
+            if (err) {
+              throw err;
+            }
+            console.log("Success! The employee has been added to database.");
             displayMenu();
           }
         );

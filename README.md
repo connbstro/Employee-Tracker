@@ -4,6 +4,8 @@
 
 ## **Description:**
 
+An interface that allow non-developers to easily view and interact with information stored in databases. This is a content management system (CMS) command-line application used to manage a company's employee database using Node.js, Inquirer, and MySQL.
+
 ## **Video Example**
 
 ![Screenshot 2023-05-08 at 2 58 00 PM](https://user-images.githubusercontent.com/117555071/236921501-bdc9a312-fd1a-4c54-921a-16930c168f5a.png)
@@ -15,17 +17,15 @@
   <details>
   <summary>Click to expand contents</summary>
 
-### [Build](#Build)
-
 ### [Description](#Description)
+
+### [Build](#Build)
 
 ### [Installation](#Installation)
 
 ### [Usage](#Usage)
 
 ### [Contributors](#Contributors)
-
-### [Tests](#Tests)
 
 ### [Questions](#Questions)
 
@@ -61,10 +61,6 @@ Clone this repository to your local system and make sure that you have node.js i
   "MySQL 2" npm package: https://www.npmjs.com/package/mysql2
   <br />
   "console.table" npm package: https://www.npmjs.com/package/console.table
-
-  <br/>
-
-## **Tests**
 
   <br/>
 

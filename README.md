@@ -7,6 +7,7 @@
 An interface that allow non-developers to easily view and interact with information stored in databases. This is a content management system (CMS) command-line application used to manage a company's employee database using Node.js, Inquirer, and MySQL.
 
 ## **Video Example**
+(https://drive.google.com/file/d/1J65JYUie8kx21F8BFXd8GhDS2AgTmIYr/view)
 
 ![Screenshot 2023-05-08 at 2 58 00 PM](https://user-images.githubusercontent.com/117555071/236921501-bdc9a312-fd1a-4c54-921a-16930c168f5a.png)
 
